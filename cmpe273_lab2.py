@@ -19,7 +19,7 @@ import datetime
 import operator
 
 
-class HelloWorldService(ServiceBase):
+class MyService(ServiceBase):
     @rpc(str, str, str, _returns=Iterable(Unicode))
     def checkcrime(ctx, lat, lon, radius):
         url = "https://api.spotcrime.com/crimes.json?lat="+str(lat)+"&lon="+str(lon)+"&radius="+str(radius)+"&key=."
@@ -138,12 +138,12 @@ class HelloWorldService(ServiceBase):
 
         result_dict = {'total_crime':no_of_crimes,
                      'the_most_dangerous_streets':top_3,
-                     'crime_type_accnt':crime_type_dict,
-                     'event_time_cnt':time_cnt
+                     'crime_type_count':crime_type_dict,
+                     'event_time_count':time_cnt
                      }
         yield result_dict
 
-application = Application([HelloWorldService],
+application = Application([MyService],
     tns='spyne.lab2',
     in_protocol=HttpRpc(validator='soft'),
     out_protocol=JsonDocument()
